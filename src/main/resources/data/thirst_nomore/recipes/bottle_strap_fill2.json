@@ -1,0 +1,20 @@
+{
+  "type": "thirst_nomore:thirst_refill",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "thirst_nomore:bottle_strap"
+    },
+    {
+      "item": "minecraft:potion"
+    },
+    {
+      "item": "minecraft:potion"
+    }
+  ],
+  "result":
+  {
+    "item": "thirst_nomore:bottle_strap",
+    "count": 1
+  }
+}

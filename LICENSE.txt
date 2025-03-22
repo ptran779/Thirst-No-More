@@ -1,0 +1,54 @@
+Copyright (c) 2025 ptran779. All Rights Reserved.
+
+**License Terms for Use and Distribution:**
+
+1. **Grant of Limited Permission**  
+   You are granted limited, non-exclusive permission to use this software ("the Mod") under the following conditions:  
+
+   a. **Modpacks**:  
+      - The Mod may be included in **modpacks** (collections of multiple mods/software) distributed on any platform, provided:  
+        i. The modpack contains **significant original content** beyond the Mod.  
+        ii. The modpack includes a visible credit to the original Mod and a link to its official distribution page (e.g., CurseForge/Modrinth).  
+
+   b. **Private Use**:  
+      - You may use the Mod privately (e.g., in single-player worlds or small friend groups).  
+
+2. **Prohibited Actions**  
+   Violations of these terms will result in revocation of rights and may lead to legal action:  
+
+   a. **Standalone Redistribution**:  
+      - You may **not** redistribute the Mod as a standalone file, modified or unmodified, on any platform (including but not limited to GitHub, PlanetMinecraft, or ad-supported sites).  
+
+   b. **Derivative Works**:  
+      - Creating forks, spin-offs, or derivative versions of the Mod is strictly prohibited without permission.  
+
+   c. **Commercial Use**:  
+      - No commercial use (e.g., paid modpacks, Patreon paywalls) without explicit written permission.  
+
+3. **Ownership and Contributions**  
+   a. All rights to the Mod are retained solely by ptran779.  
+   b. By contributing to this project (e.g., via GitHub pull requests), contributors:  
+      i. Grant ptran779 a **perpetual, worldwide, non-exclusive license** to use, modify, and distribute their contributions under this license.  
+      ii. Agree their contributions may be licensed under these terms.  
+      iii. Retain ownership of their contributions, which they may freely use elsewhere. 
+
+4. **Disclaimer of Liability**  
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE. 
+
+5. **Enforcement**  
+   Unauthorized distribution or modification will result in:  
+   - DMCA takedown notices.  
+   - Revocation of rights to use the Mod.  
+   - Potential legal action.  
+
+---
+
+**Official Distribution Platforms:**  
+- CurseForge:  
+- Modrinth:
