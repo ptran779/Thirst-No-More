@@ -3,16 +3,16 @@
     "category": "misc",
     "pattern": [
         "lbl",
-        "ibi",
-        "ibi"
+        "lbl",
+        "iii"
     ],
     "key": {
         "i": { "item": "minecraft:iron_ingot" },
         "l": { "item": "minecraft:leather" },
-        "b": { "item": "minecraft:glass_bottle" }
+        "b": { "item": "thirst_nomore:bottle_strap" }
     },
     "result": {
-        "item": "thirst_nomore:bottle_strap",
+        "item": "thirst_nomore:camel_pack",
         "count": 1,
         "nbt": "{Damage:100, n_drink:0}"
     },

@@ -61,22 +61,22 @@ public class ThirstRefillRecipe extends ShapelessRecipe {
   @Override
   public @NotNull ItemStack assemble(CraftingContainer container, RegistryAccess pRegistryAccess) {
     // Find the input bottle strap
-    ItemStack inputStrap = ItemStack.EMPTY;
+    ItemStack waterItem = ItemStack.EMPTY;
     for (int i = 0; i < container.getContainerSize(); i++) {
       ItemStack stack = container.getItem(i);
       if (stack.getItem() instanceof WaterContainer) {
-        inputStrap = stack;
+        waterItem = stack;
         break;
       }
     }
 
-    if (inputStrap.isEmpty()) return ItemStack.EMPTY;
+    if (waterItem.isEmpty()) return ItemStack.EMPTY;
 
     // Sum "purity" values from all non-container ingredients  --WIP check purity level later
     int totalPurity = 0;
     for (int i = 0; i < container.getContainerSize(); i++) {
       ItemStack stack = container.getItem(i);
-      if (stack == inputStrap) continue; // Skip the container itself
+      if (stack == waterItem) continue; // Skip the container itself
 
       CompoundTag tag = stack.getTag();
       if (tag != null && tag.contains("Purity") && tag.getInt("Purity") >= ThirstNomoreConfigs.PURITY_MINIMUM.get()) {
@@ -84,11 +84,11 @@ public class ThirstRefillRecipe extends ShapelessRecipe {
       }
     }
     // durability check here -- already confirm it's a WaterContainer
-    int new_totalPurity = inputStrap.getOrCreateTag().getInt(WaterContainer.NDRINKTAG) + totalPurity;
-    if (new_totalPurity> ((WaterContainer) inputStrap.getItem()).getMaxDrink()){return ItemStack.EMPTY;}  // cannot fill exceed
+    int new_totalPurity = waterItem.getOrCreateTag().getInt(WaterContainer.NDRINKTAG) + totalPurity;
+    if (new_totalPurity> ((WaterContainer) waterItem.getItem()).getMaxDrink()){return ItemStack.EMPTY;}  // cannot fill exceed
 
     // Create modified result
-    ItemStack result = inputStrap.copy();
+    ItemStack result = waterItem.copy();
     WaterContainer.setNDrink(result, new_totalPurity);
     return result;
   }

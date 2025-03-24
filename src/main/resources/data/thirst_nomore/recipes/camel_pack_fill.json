@@ -1,0 +1,17 @@
+{
+  "type": "thirst_nomore:thirst_refill",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "thirst_nomore:camel_pack"
+    },
+    {
+      "item": "minecraft:potion"
+    }
+  ],
+  "result":
+  {
+    "item": "thirst_nomore:camel_pack",
+    "count": 1
+  }
+}
