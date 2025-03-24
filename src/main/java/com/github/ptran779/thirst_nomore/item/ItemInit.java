@@ -1,13 +1,11 @@
 package com.github.ptran779.thirst_nomore.item;
 
-import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import com.github.ptran779.thirst_nomore.ThirstNomore;
-import com.github.ptran779.thirst_nomore.util.ExtraMaterial;
 
 public class ItemInit {
     public static final DeferredRegister<Item> ITEMS =
@@ -19,5 +17,7 @@ public class ItemInit {
 
     // water containter stuff
     public static final RegistryObject<Item> BOTTLE_STRAP = ITEMS.register("bottle_strap",
-            () -> new BottleStrap(ExtraMaterial.bottle_strap, ArmorItem.Type.LEGGINGS, new Item.Properties()));
+            () -> new BottleStrap(new Item.Properties()));
+    public static final RegistryObject<Item> CAMEL_PACK = ITEMS.register("camel_pack",
+        () -> new CamelPack(new Item.Properties()));
 }
