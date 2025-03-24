@@ -50,5 +50,5 @@ SOFTWARE.
 ---
 
 **Official Distribution Platforms:**  
-- CurseForge:  
-- Modrinth:
+- CurseForge: WIP
+- Modrinth: https://modrinth.com/mod/thirst-was-no-more/
