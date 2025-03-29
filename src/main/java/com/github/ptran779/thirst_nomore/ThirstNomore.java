@@ -3,9 +3,8 @@ package com.github.ptran779.thirst_nomore;
 import com.github.ptran779.thirst_nomore.client.registerLayerRender;
 import com.github.ptran779.thirst_nomore.curio.CuriosCompat;
 import com.github.ptran779.thirst_nomore.event.EventServerHandler;
-import net.minecraft.world.item.CreativeModeTabs;
+import com.github.ptran779.thirst_nomore.item.ModCreativeModeTab;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -14,7 +13,7 @@ import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import com.github.ptran779.config.ThirstNomoreConfigs;
 import com.github.ptran779.thirst_nomore.item.ItemInit;
-import com.github.ptran779.thirst_nomore.recipe.ModRecipes;
+import com.github.ptran779.thirst_nomore.recipe.ModRecipesTWT;
 
 
 // The value here should match an entry in the META-INF/mods.toml file
@@ -26,9 +25,12 @@ public class ThirstNomore
     // Directly reference a slf4j logger
     public ThirstNomore(FMLJavaModLoadingContext context)
     {
+
         // event setup
         IEventBus modEventBus = context.getModEventBus();
         MinecraftForge.EVENT_BUS.register(this);
+
+        // one thirst mod pls
 
         // config setup
         ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, ThirstNomoreConfigs.CONFIG, "thirst_nomore-server.toml");
@@ -36,13 +38,14 @@ public class ThirstNomore
         // register item
         ItemInit.register(modEventBus);
         // creative tab
-        modEventBus.addListener(this::addCreative);
+        ModCreativeModeTab.register(modEventBus);
 
         //register client render
         modEventBus.addListener(registerLayerRender::registerMeRender);
 
         // register recipes event
-        ModRecipes.register(modEventBus);
+        ModRecipesTWT.register(modEventBus);
+//        ModRecipesTWT.register(modEventBus);
 
         // register config event
         modEventBus.addListener(EventServerHandler::onConfigLoaded);
@@ -52,12 +55,5 @@ public class ThirstNomore
         if (ModList.get().isLoaded("curios")) {
             new CuriosCompat(modEventBus);
         };
-    }
-
-    private void addCreative(BuildCreativeModeTabContentsEvent event) {
-        if (event.getTabKey() == CreativeModeTabs.COMBAT) {
-            event.accept(ItemInit.BOTTLE_STRAP);
-            event.accept(ItemInit.CAMEL_PACK);
-        }
     }
 }

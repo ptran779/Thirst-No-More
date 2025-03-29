@@ -7,6 +7,7 @@ public class ThirstNomoreConfigs {
     // Common
     public static ForgeConfigSpec.ConfigValue<Integer> MAX_USAGE_BOTTLE_STRAP;
     public static ForgeConfigSpec.ConfigValue<Integer> MAX_USAGE_CAMEL_PACK;
+    public static ForgeConfigSpec.ConfigValue<Integer> MAX_USAGE_DRINKING_HELMET;
     public static ForgeConfigSpec.ConfigValue<Integer> PURITY_MINIMUM;
     public static ForgeConfigSpec.ConfigValue<Integer> THIRST_RESTORE_PER_DRINK;
     public static ForgeConfigSpec.ConfigValue<Integer> QUENCH_RESTORE_PER_DRINK;
@@ -18,6 +19,8 @@ public class ThirstNomoreConfigs {
         MAX_USAGE_BOTTLE_STRAP = BUILDER.comment("How many quench can bottle_strap hold?")
                         .defineInRange("Bottle Strap quench max", 10, 1, Integer.MAX_VALUE);
         MAX_USAGE_CAMEL_PACK = BUILDER.comment("How many quench can camel_pack hold?")
+            .defineInRange("Bottle Strap quench max", 20, 1, Integer.MAX_VALUE);
+        MAX_USAGE_DRINKING_HELMET = BUILDER.comment("How many quench can drinking_helmet hold?")
             .defineInRange("Bottle Strap quench max", 20, 1, Integer.MAX_VALUE);
         PURITY_MINIMUM = BUILDER.comment("What is the minimum level of purity does the container (ex:minecraft:potion) need to refill the water container?")
             .defineInRange("Purity Level Min", 3, 0,3);

@@ -1,0 +1,23 @@
+{
+  "type": "thirst_nomore:thirst_refill",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "thirst_nomore:drinking_helmet"
+    },
+    {
+      "item": "minecraft:potion"
+    },
+    {
+      "item": "minecraft:potion"
+    },
+    {
+      "item": "minecraft:potion"
+    }
+  ],
+  "result":
+  {
+    "item": "thirst_nomore:drinking_helmet",
+    "count": 1
+  }
+}
