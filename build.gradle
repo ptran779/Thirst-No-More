@@ -146,8 +146,12 @@ dependencies {
 
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
 
-    implementation fg.deobf("curse.maven:thirst-was-taken-679270:6291049")
+    implementation(fg.deobf("curse.maven:thirst-was-taken-679270:6291049"))
     implementation fg.deobf("curse.maven:appleskin-248787:4770828")  // debugging purpose only
+    implementation fg.deobf("curse.maven:jei-238222:6075247")
+
+//    compileOnly(fg.deobf("curse.maven:survive-367337:5909615"))
+//    compileOnly(fg.deobf("curse.maven:unionlib-367806:5546278"))
 
     compileOnly(fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}:api"))
     runtimeOnly(fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}"))

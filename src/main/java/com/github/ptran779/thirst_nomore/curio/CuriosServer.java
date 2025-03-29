@@ -16,9 +16,7 @@ public class CuriosServer {
         CuriosApi.getCuriosHelper().getCuriosHandler(serverPlayer).ifPresent(handler -> {
           handler.getCurios().forEach((identifier, stacksHandler) -> {
             for (int i = 0; i < stacksHandler.getSlots(); i++) {
-              ItemStack stack = stacksHandler.getStacks().getStackInSlot(i);
-              trydDrinking(stack, serverPlayer);
-              break;
+              if (trydDrinking(stacksHandler.getStacks().getStackInSlot(i), serverPlayer)){break;};
             }
           });
         });

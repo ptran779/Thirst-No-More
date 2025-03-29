@@ -1,0 +1,19 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "pattern": [
+        "   ",
+        "bhb",
+        "lll"
+    ],
+    "key": {
+        "l": { "item": "minecraft:leather" },
+        "b": { "item": "thirst_nomore:bottle_strap" }
+    },
+    "result": {
+        "item": "thirst_nomore:drinking_helmet",
+        "count": 1,
+        "nbt": "{Damage:100, n_drink:0}"
+    },
+    "show_notification": true
+}

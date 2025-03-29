@@ -1,6 +1,7 @@
 package com.github.ptran779.thirst_nomore.event;
 
 import com.github.ptran779.thirst_nomore.item.CamelPack;
+import com.github.ptran779.thirst_nomore.item.DrinkingHelmet;
 import dev.ghen.thirst.foundation.common.capability.ModCapabilities;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -17,9 +18,11 @@ import com.github.ptran779.thirst_nomore.ThirstNomore;
 import com.github.ptran779.thirst_nomore.item.BottleStrap;
 import com.github.ptran779.thirst_nomore.util.WaterContainer;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+
 @Mod.EventBusSubscriber(modid = ThirstNomore.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class EventServerHandler {
-  private static int purity_min = 3;
+  public static int purity_min = 3;
   private static int thirst_restore = 4;
   private static int quench_restore = 2;
   public static int tick_rate = 200;
@@ -49,6 +52,8 @@ public class EventServerHandler {
           bottleStrap.setMaxDrink(ThirstNomoreConfigs.MAX_USAGE_BOTTLE_STRAP.get());
         } else if (item instanceof CamelPack CamelPack) {
           CamelPack.setMaxDrink(ThirstNomoreConfigs.MAX_USAGE_CAMEL_PACK.get());
+        } else if (item instanceof DrinkingHelmet DrinkingHelmet) {
+          DrinkingHelmet.setMaxDrink(ThirstNomoreConfigs.MAX_USAGE_DRINKING_HELMET.get());
         }
       }
     }
@@ -61,22 +66,25 @@ public class EventServerHandler {
       if (timer < tick_rate) {timer++;}
       else {
         timer = 0;
-        for (EquipmentSlot slot : new EquipmentSlot[]{EquipmentSlot.LEGS, EquipmentSlot.CHEST}) {
-          trydDrinking(serverPlayer.getItemBySlot(slot), serverPlayer);
+        for (EquipmentSlot slot : new EquipmentSlot[]{EquipmentSlot.LEGS, EquipmentSlot.CHEST, EquipmentSlot.HEAD}) {
+          if (trydDrinking(serverPlayer.getItemBySlot(slot), serverPlayer)) {break;};
         }
       }
     }
   }
 
   // attempt to try to drink given item stack and player doing it
-  public static void trydDrinking(ItemStack targetItem, ServerPlayer serverPlayer){
+  public static boolean trydDrinking(ItemStack targetItem, ServerPlayer serverPlayer){
+    AtomicBoolean success = new AtomicBoolean(false);
     if (targetItem.getItem() instanceof WaterContainer) {
       serverPlayer.getCapability(ModCapabilities.PLAYER_THIRST, null).ifPresent(cap -> {
         if (cap.getThirst() <= 20 - thirst_restore && WaterContainer.getNDrink(targetItem) > 0) {
           cap.drink(serverPlayer, thirst_restore, quench_restore);
           WaterContainer.setNDrink(targetItem, WaterContainer.getNDrink(targetItem) - 1);
+          success.set(true);
         }
       });
     }
+    return success.get();
   }
 }

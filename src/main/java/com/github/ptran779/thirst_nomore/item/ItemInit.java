@@ -20,4 +20,6 @@ public class ItemInit {
             () -> new BottleStrap(new Item.Properties()));
     public static final RegistryObject<Item> CAMEL_PACK = ITEMS.register("camel_pack",
         () -> new CamelPack(new Item.Properties()));
+    public static final RegistryObject<Item> DRINKING_HELMET = ITEMS.register("drinking_helmet",
+        () -> new DrinkingHelmet(new Item.Properties()));
 }

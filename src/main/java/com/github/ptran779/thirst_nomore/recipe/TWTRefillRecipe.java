@@ -1,6 +1,8 @@
 package com.github.ptran779.thirst_nomore.recipe;
 
 import com.github.ptran779.config.ThirstNomoreConfigs;
+import com.github.ptran779.thirst_nomore.event.EventServerHandler;
+import com.github.ptran779.thirst_nomore.util.RecipeHelper;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
@@ -14,38 +16,17 @@ import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.*;
-import net.minecraft.world.level.Level;
 import com.github.ptran779.thirst_nomore.ThirstNomore;
-import com.github.ptran779.thirst_nomore.util.WaterContainer;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class ThirstRefillRecipe extends ShapelessRecipe {
-  public ThirstRefillRecipe(ResourceLocation pId, String pGroup, CraftingBookCategory pCategory, ItemStack pResult, NonNullList<Ingredient> pIngredients) {
+public class TWTRefillRecipe extends ShapelessRecipe {
+  public TWTRefillRecipe(ResourceLocation pId, String pGroup, CraftingBookCategory pCategory, ItemStack pResult, NonNullList<Ingredient> pIngredients) {
     super(pId, pGroup, pCategory, pResult, pIngredients);
   }
 
-  public boolean matches(CraftingContainer container, Level level) {
-    // 1. Check vanilla ingredient requirements
-    if (!super.matches(container, level)) return false;
-
-    // 2. Additional NBT validation (e.g., ensure potion is water)
-    boolean hasValidPotion = false;
-    for (int i = 0; i < container.getContainerSize(); i++) {
-      ItemStack stack = container.getItem(i);
-      if (stack.is(Items.POTION)) {
-        CompoundTag tag = stack.getTag();
-        if (tag != null && tag.getString("Potion").equals("minecraft:water")) {
-          hasValidPotion = true;
-          break;
-        }
-      }
-    }
-    return hasValidPotion;
-  }
-
   @Override
-  public NonNullList<ItemStack> getRemainingItems(CraftingContainer container) {
+  public @NotNull NonNullList<ItemStack> getRemainingItems(@NotNull CraftingContainer container) {
     NonNullList<ItemStack> remaining = super.getRemainingItems(container);
     for (int i = 0; i < container.getContainerSize(); i++) {
       ItemStack stack = container.getItem(i);
@@ -61,42 +42,28 @@ public class ThirstRefillRecipe extends ShapelessRecipe {
   @Override
   public @NotNull ItemStack assemble(CraftingContainer container, RegistryAccess pRegistryAccess) {
     // Find the input bottle strap
-    ItemStack waterItem = ItemStack.EMPTY;
-    for (int i = 0; i < container.getContainerSize(); i++) {
-      ItemStack stack = container.getItem(i);
-      if (stack.getItem() instanceof WaterContainer) {
-        waterItem = stack;
-        break;
-      }
-    }
-
-    if (waterItem.isEmpty()) return ItemStack.EMPTY;
+    ItemStack waterItem = RecipeHelper.findWaterContainer(container);
+    if (waterItem.isEmpty()) {return ItemStack.EMPTY;}
 
     // Sum "purity" values from all non-container ingredients  --WIP check purity level later
-    int totalPurity = 0;
+    int waterAdd = 0;
     for (int i = 0; i < container.getContainerSize(); i++) {
       ItemStack stack = container.getItem(i);
       if (stack == waterItem) continue; // Skip the container itself
 
       CompoundTag tag = stack.getTag();
-      if (tag != null && tag.contains("Purity") && tag.getInt("Purity") >= ThirstNomoreConfigs.PURITY_MINIMUM.get()) {
-        totalPurity += 1;
+      if (tag != null && tag.contains("Purity") && tag.getInt("Purity") >= EventServerHandler.purity_min) {
+        waterAdd += 1;
       }
     }
     // durability check here -- already confirm it's a WaterContainer
-    int new_totalPurity = waterItem.getOrCreateTag().getInt(WaterContainer.NDRINKTAG) + totalPurity;
-    if (new_totalPurity> ((WaterContainer) waterItem.getItem()).getMaxDrink()){return ItemStack.EMPTY;}  // cannot fill exceed
-
-    // Create modified result
-    ItemStack result = waterItem.copy();
-    WaterContainer.setNDrink(result, new_totalPurity);
-    return result;
+    return RecipeHelper.compute_new_drink(waterItem, waterAdd);
   }
 
-  public static class Serializer implements RecipeSerializer<ThirstRefillRecipe> {
+  public static class Serializer implements RecipeSerializer<TWTRefillRecipe> {
     private static final ResourceLocation NAME = new ResourceLocation(ThirstNomore.MODID, "thirst_refill");
     @Override
-    public ThirstRefillRecipe fromJson(ResourceLocation pRecipeId, JsonObject pJson) {
+    public TWTRefillRecipe fromJson(ResourceLocation pRecipeId, JsonObject pJson) {
       // Parse group and category
       String group = GsonHelper.getAsString(pJson, "group", "");
       CraftingBookCategory category = CraftingBookCategory.CODEC.byName(
@@ -110,7 +77,7 @@ public class ThirstRefillRecipe extends ShapelessRecipe {
         throw new JsonParseException("No ingredients for shapeless recipe");
       } else {
         ItemStack itemstack = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(pJson, "result"));
-        return new ThirstRefillRecipe(pRecipeId, group, category, itemstack, nonnulllist);
+        return new TWTRefillRecipe(pRecipeId, group, category, itemstack, nonnulllist);
       }
     }
 
@@ -128,7 +95,7 @@ public class ThirstRefillRecipe extends ShapelessRecipe {
     }
 
     @Override
-    public @Nullable ThirstRefillRecipe fromNetwork(ResourceLocation pRecipeId, FriendlyByteBuf pBuffer) {
+    public @Nullable TWTRefillRecipe fromNetwork(ResourceLocation pRecipeId, FriendlyByteBuf pBuffer) {
       String s = pBuffer.readUtf();
       CraftingBookCategory craftingbookcategory = pBuffer.readEnum(CraftingBookCategory.class);
       int i = pBuffer.readVarInt();
@@ -139,11 +106,11 @@ public class ThirstRefillRecipe extends ShapelessRecipe {
       }
 
       ItemStack itemstack = pBuffer.readItem();
-      return new ThirstRefillRecipe(pRecipeId, s, craftingbookcategory, itemstack, nonnulllist);
+      return new TWTRefillRecipe(pRecipeId, s, craftingbookcategory, itemstack, nonnulllist);
     }
 
     @Override
-    public void toNetwork(FriendlyByteBuf pBuffer, ThirstRefillRecipe pRecipe) {
+    public void toNetwork(FriendlyByteBuf pBuffer, TWTRefillRecipe pRecipe) {
       pBuffer.writeUtf(pRecipe.getGroup());
       pBuffer.writeEnum(pRecipe.category());
       pBuffer.writeVarInt(pRecipe.getIngredients().size());

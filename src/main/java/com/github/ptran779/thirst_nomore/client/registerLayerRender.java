@@ -16,6 +16,7 @@ public class registerLayerRender {
     if (renderer instanceof LivingEntityRenderer<?, ?> livingRenderer) {
       livingRenderer.addLayer(new BSRendererLayer(livingRenderer));
       livingRenderer.addLayer(new CPRendererLayer(livingRenderer));
+      livingRenderer.addLayer(new DHRendererLayer(livingRenderer));
     }
   }
 }
