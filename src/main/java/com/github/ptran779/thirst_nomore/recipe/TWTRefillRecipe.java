@@ -51,8 +51,14 @@ public class TWTRefillRecipe extends ShapelessRecipe {
       ItemStack stack = container.getItem(i);
       if (stack == waterItem) continue; // Skip the container itself
 
-      CompoundTag tag = stack.getTag();
-      if (tag != null && tag.contains("Purity") && tag.getInt("Purity") >= EventServerHandler.purity_min) {
+      // special case for potion/water thing
+      if (stack.is(Items.POTION)) {
+        CompoundTag tag = stack.getTag();
+        if (tag != null && tag.contains("Potion") && tag.getString("Potion").equals("survive:purified_water")) {
+          waterAdd += 1;
+        }
+      } else // for all other items. Mostly so mod pack dev can add custom recipe in. NBT might be an issue... for another day...
+      {
         waterAdd += 1;
       }
     }

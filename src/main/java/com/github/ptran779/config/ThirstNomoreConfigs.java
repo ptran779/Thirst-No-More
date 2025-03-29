@@ -12,6 +12,7 @@ public class ThirstNomoreConfigs {
     public static ForgeConfigSpec.ConfigValue<Integer> THIRST_RESTORE_PER_DRINK;
     public static ForgeConfigSpec.ConfigValue<Integer> QUENCH_RESTORE_PER_DRINK;
     public static ForgeConfigSpec.ConfigValue<Integer> TICKS_PER_DRINK_CHECK;
+    public static ForgeConfigSpec.ConfigValue<Integer> WATER_FILL_UP_TO;
 
     static {
         ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
@@ -22,8 +23,8 @@ public class ThirstNomoreConfigs {
             .defineInRange("Bottle Strap quench max", 20, 1, Integer.MAX_VALUE);
         MAX_USAGE_DRINKING_HELMET = BUILDER.comment("How many quench can drinking_helmet hold?")
             .defineInRange("Bottle Strap quench max", 20, 1, Integer.MAX_VALUE);
-        PURITY_MINIMUM = BUILDER.comment("What is the minimum level of purity does the container (ex:minecraft:potion) need to refill the water container?")
-            .defineInRange("Purity Level Min", 3, 0,3);
+        WATER_FILL_UP_TO = BUILDER.comment("What hydration level do you want to autofill upto? Ex: setting 18 mean the item will only try keep you at leat 18 hydration value")
+            .defineInRange("water fill up to", 20, 1,20);
         THIRST_RESTORE_PER_DRINK = BUILDER.comment("How many thirst value does each drink restore?")
             .defineInRange("Thirst restore per drink", 4, 0, 20);
         QUENCH_RESTORE_PER_DRINK = BUILDER.comment("How many Quench value does each drink restore? (this is the " +

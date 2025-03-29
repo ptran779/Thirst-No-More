@@ -1,7 +1,6 @@
 package com.github.ptran779.thirst_nomore.curio;
 
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import top.theillusivec4.curios.api.CuriosApi;
@@ -16,7 +15,7 @@ public class CuriosServer {
         CuriosApi.getCuriosHelper().getCuriosHandler(serverPlayer).ifPresent(handler -> {
           handler.getCurios().forEach((identifier, stacksHandler) -> {
             for (int i = 0; i < stacksHandler.getSlots(); i++) {
-              if (trydDrinking(stacksHandler.getStacks().getStackInSlot(i), serverPlayer)){break;};
+              if (tryDrinking(stacksHandler.getStacks().getStackInSlot(i), serverPlayer)){break;};
             }
           });
         });
