@@ -50,7 +50,7 @@ public class TWTRefillRecipe extends ShapelessRecipe {
     for (int i = 0; i < container.getContainerSize(); i++) {
       ItemStack stack = container.getItem(i);
       if (stack == waterItem) continue; // Skip the container itself
-
+      if (stack == ItemStack.EMPTY) {continue;}
       // special case for potion/water thing
       if (stack.is(Items.POTION)) {
         CompoundTag tag = stack.getTag();
