@@ -1,6 +1,5 @@
 package com.github.ptran779.thirst_nomore.client;
 
-import com.github.ptran779.thirst_nomore.item.CamelPack;
 import com.github.ptran779.thirst_nomore.item.DrinkingHelmet;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;

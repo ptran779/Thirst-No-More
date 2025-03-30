@@ -7,6 +7,7 @@
         "lll"
     ],
     "key": {
+        "h": { "item": "minecraft:leather_helmet" },
         "l": { "item": "minecraft:leather" },
         "b": { "item": "thirst_nomore:bottle_strap" }
     },
