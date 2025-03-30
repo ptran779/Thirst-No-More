@@ -4,6 +4,7 @@ import com.github.ptran779.thirst_nomore.client.registerLayerRender;
 import com.github.ptran779.thirst_nomore.curio.CuriosCompat;
 import com.github.ptran779.thirst_nomore.event.EventServerHandler;
 import com.github.ptran779.thirst_nomore.item.ModCreativeModeTab;
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModList;
@@ -14,6 +15,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import com.github.ptran779.config.ThirstNomoreConfigs;
 import com.github.ptran779.thirst_nomore.item.ItemInit;
 import com.github.ptran779.thirst_nomore.recipe.ModRecipesTWT;
+import net.minecraftforge.fml.loading.FMLEnvironment;
 
 
 // The value here should match an entry in the META-INF/mods.toml file
@@ -30,8 +32,6 @@ public class ThirstNomore
         IEventBus modEventBus = context.getModEventBus();
         MinecraftForge.EVENT_BUS.register(this);
 
-        // one thirst mod pls
-
         // config setup
         ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, ThirstNomoreConfigs.CONFIG, "thirst_nomore-server.toml");
 
@@ -41,11 +41,12 @@ public class ThirstNomore
         ModCreativeModeTab.register(modEventBus);
 
         //register client render
-        modEventBus.addListener(registerLayerRender::registerMeRender);
+        if (FMLEnvironment.dist == Dist.CLIENT) {
+            modEventBus.addListener(registerLayerRender::registerMeRender);
+        }
 
         // register recipes event
         ModRecipesTWT.register(modEventBus);
-//        ModRecipesTWT.register(modEventBus);
 
         // register config event
         modEventBus.addListener(EventServerHandler::onConfigLoaded);
