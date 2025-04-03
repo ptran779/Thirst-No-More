@@ -79,7 +79,9 @@ public class EventServerHandler {
     if (targetItem.getItem() instanceof WaterContainer) {
       serverPlayer.getCapability(ModCapabilities.PLAYER_THIRST, null).ifPresent(cap -> {
         if (cap.getThirst() <= 20 - thirst_restore && WaterContainer.getNDrink(targetItem) > 0) {
+          System.out.println(quench_restore);
           cap.drink(serverPlayer, thirst_restore, quench_restore);
+          System.out.println(quench_restore);
           WaterContainer.setNDrink(targetItem, WaterContainer.getNDrink(targetItem) - 1);
           success.set(true);
         }
